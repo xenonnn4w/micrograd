@@ -36,6 +36,28 @@ def draw_dot(root):
     return dot
 
 
+class RunLog:
+    """Print lines to console and mirror them to a text file.
+
+    Usage:
+        log = RunLog("moons_log.txt")
+        log(model)                      # any object, like print
+        log(f"step {k} loss {l}")
+        log.close()
+    """
+
+    def __init__(self, path="run_log.txt"):
+        self.file = open(path, "w")
+
+    def __call__(self, *args):
+        line = " ".join(str(a) for a in args)
+        print(line)
+        self.file.write(line + "\n")
+
+    def close(self):
+        self.file.close()
+
+
 class TrainingLog:
     """Training table printed to console and written to a text file.
 
